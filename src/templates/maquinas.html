@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Máquinas - Mi Gimnasio{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;">Máquinas y ejercicios</h2>
+        <a href="{{ url_for('nueva_maquina') }}">
+            <button type="button">+ Nueva máquina</button>
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    {% if maquinas %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Grupo muscular</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in maquinas %}
+            <tr>
+                <td><a href="{{ url_for('progreso_maquina', maquina_id=m.id) }}" style="color:#ff5a3c;">{{ m.nombre }}</a></td>
+                <td>{% if m.grupo_muscular %}<span class="badge">{{ m.grupo_muscular }}</span>{% endif %}</td>
+                <td class="actions">
+                    <form class="inline" method="post" action="{{ url_for('eliminar_maquina', maquina_id=m.id) }}"
+                          onsubmit="return confirm('Esto eliminará también sus registros. ¿Continuar?');">
+                        <button type="submit" class="danger" style="margin-top:0; padding:0.3rem 0.6rem; font-size:0.8rem;">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Aún no has añadido ninguna máquina.</p>
+    {% endif %}
+</div>
+{% endblock %}

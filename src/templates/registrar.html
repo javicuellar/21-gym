@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Registrar actividad - Mi Gimnasio{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Registrar actividad</h2>
+
+    {% if not maquinas %}
+        <p class="empty">
+            Primero necesitas añadir al menos una máquina.
+            <a href="{{ url_for('nueva_maquina') }}" style="color:#ff5a3c;">Añadir máquina</a>
+        </p>
+    {% else %}
+    <form method="post">
+        <label for="maquina_id">Máquina / ejercicio</label>
+        <select id="maquina_id" name="maquina_id" required>
+            <option value="">-- Selecciona una máquina --</option>
+            {% for m in maquinas %}
+            <option value="{{ m.id }}">{{ m.nombre }}{% if m.grupo_muscular %} ({{ m.grupo_muscular }}){% endif %}</option>
+            {% endfor %}
+        </select>
+
+        <label for="notas">Notas</label>
+        <textarea id="notas" name="notas" rows="4" placeholder="Ej: 3 series de 12 reps con 40kg, buena sensación" required></textarea>
+
+        <button type="submit">Guardar actividad</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

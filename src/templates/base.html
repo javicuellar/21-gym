@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Gimnasio{% endblock %}</title>
+    <style>
+        :root {
+            --primary: #ff5a3c;
+            --dark: #1c1f26;
+            --panel: #262a33;
+            --text: #e8e8e8;
+            --muted: #9aa0ab;
+            --success: #2ecc71;
+            --error: #ff5a5a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+        }
+        header {
+            background: var(--panel);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 1.2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        nav a:hover { background: var(--primary); }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .card {
+            background: var(--panel);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        h2 { margin-top: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.6rem 0.5rem;
+            border-bottom: 1px solid #383d47;
+            font-size: 0.92rem;
+        }
+        th { color: var(--muted); font-weight: 600; }
+        label {
+            display: block;
+            margin: 0.9rem 0 0.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #3d4250;
+            background: #1c1f26;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        button {
+            margin-top: 1.3rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        button:hover { opacity: 0.9; }
+        button.secondary {
+            background: transparent;
+            border: 1px solid var(--muted);
+        }
+        button.danger {
+            background: var(--error);
+        }
+        .flash {
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .flash.success { background: rgba(46, 204, 113, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .flash.error { background: rgba(255, 90, 90, 0.15); color: var(--error); border: 1px solid var(--error); }
+        .stat-row { display: flex; gap: 1rem; }
+        .stat {
+            flex: 1;
+            text-align: center;
+            background: #1c1f26;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .stat strong { display: block; font-size: 1.6rem; color: var(--primary); }
+        .stat span { font-size: 0.8rem; color: var(--muted); }
+        .badge {
+            display: inline-block;
+            background: #3d4250;
+            color: var(--muted);
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        .empty { color: var(--muted); font-style: italic; }
+        form.inline { display: inline; }
+        .actions { display: flex; gap: 0.5rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏋️ Mi Gimnasio</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('registrar_actividad') }}">Registrar</a>
+            <a href="{{ url_for('listar_maquinas') }}">Máquinas</a>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for categoria, mensaje in messages %}
+                    <div class="flash {{ categoria }}">{{ mensaje }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

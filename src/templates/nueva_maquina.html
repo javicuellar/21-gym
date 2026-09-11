@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Nueva máquina - Mi Gimnasio{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Añadir máquina o ejercicio</h2>
+    <form method="post">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Press de banca" required>
+
+        <label for="grupo_muscular">Grupo muscular (opcional)</label>
+        <select id="grupo_muscular" name="grupo_muscular">
+            <option value="">-- Selecciona --</option>
+            <option value="Abdominal">Abdominal</option>
+            <option value="Pecho">Pecho</option>
+            <option value="Espalda">Espalda</option>
+            <option value="Piernas">Piernas</option>
+            <option value="Hombros">Hombros</option>
+            <option value="Brazos">Brazos</option>
+            <option value="Cardio">Cardio</option>
+            <option value="Cuerpo completo">Cuerpo completo</option>
+        </select>
+
+        <button type="submit">Guardar máquina</button>
+    </form>
+</div>
+{% endblock %}

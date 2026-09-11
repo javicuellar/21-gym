@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Inicio - Mi Gimnasio{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="stat-row">
+        <div class="stat">
+            <strong>{{ total_maquinas }}</strong>
+            <span>Máquinas registradas</span>
+        </div>
+        <div class="stat">
+            <strong>{{ total_registros }}</strong>
+            <span>Actividades registradas</span>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Últimas actividades</h2>
+    {% if registros %}
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Máquina</th>
+                <th>Grupo muscular</th>
+                <th>Notas</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in registros %}
+            <tr>
+                <td>{{ r.fecha }}</td>
+                <td>{{ r.maquina_nombre }}</td>
+                <td>{% if r.grupo_muscular %}<span class="badge">{{ r.grupo_muscular }}</span>{% endif %}</td>
+                <td>{{ r.notas }}</td>
+                <td>
+                    <form class="inline" method="post" action="{{ url_for('eliminar_registro', registro_id=r.id) }}"
+                          onsubmit="return confirm('¿Eliminar este registro?');">
+                        <button type="submit" class="danger" style="margin-top:0; padding:0.3rem 0.6rem; font-size:0.8rem;">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Todavía no has registrado ninguna actividad. ¡Empieza ahora!</p>
+    {% endif %}
+</div>
+{% endblock %}

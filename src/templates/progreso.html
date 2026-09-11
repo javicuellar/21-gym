@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Progreso - {{ maquina.nombre }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>{{ maquina.nombre }} {% if maquina.grupo_muscular %}<span class="badge">{{ maquina.grupo_muscular }}</span>{% endif %}</h2>
+
+    {% if registros %}
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in registros %}
+            <tr>
+                <td>{{ r.fecha }}</td>
+                <td>{{ r.notas }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Todavía no hay registros para esta máquina.</p>
+    {% endif %}
+</div>
+{% endblock %}
