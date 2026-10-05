@@ -5,13 +5,13 @@ services:
     image: 'python:3.14-slim'
     volumes:
       - .:/usr/python:ro                                      # código en el contenedor (solo lectura)
-      # - /volume1/informatica/Python/config:/usr/config:ro    # variables de entorno (solo lectura)
-      - /volume1/informatica/Python/bd/sqlite:/usr/bd:rw     # BD globales (lectura/escritura)
+      # - /volume1/docker/python/config:/usr/config:ro    # variables de entorno (solo lectura)
+      - /volume1/docker/python/bd/sqlite:/usr/bd:rw     # BD globales (lectura/escritura)
     working_dir: /usr/python
     restart: unless-stopped
     env_file:
-      - /volume1/informatica/Python/config/app.env            # variables locales del proyecto .env
-      # - /volume1/informatica/Python/$config/config.env       # variables globales desde volumen
+      - /volume1/docker/python/config/app.env            # variables locales del proyecto .env
+      # - /volume1/docker/python/$config/config.env       # variables globales desde volumen
     # environment:
       # - ENTORNO_JAVIER=produccion                 # también puedes definir variables extra aquí
     network_mode: host
